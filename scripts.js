@@ -3,6 +3,7 @@ const scriptUrl = 'https://script.google.com/macros/s/AKfycbyhcOr4DEZqStYGXRSBrm
 
 document.addEventListener("DOMContentLoaded", function() {
     loadDropdownData();
+    typeText();
 });
 
 // Define the text to be typed
