@@ -28,9 +28,6 @@ function typeText() {
     }
 }
 
-// Start typing when the page loads
-window.onload = typeText;
-
 
 async function loadDropdownData() {
     try {
