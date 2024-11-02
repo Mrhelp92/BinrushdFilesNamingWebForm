@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -19,6 +22,7 @@ body {
 h2 {
     text-align: center;
     color: #333;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
 }
 
 form label, select, input {
@@ -44,4 +48,8 @@ button:hover {
 h3, #output {
     text-align: center;
     color: #333;
+}
+
+body, h1, h3, p {
+    font-family: 'Roboto', sans-serif;
 }

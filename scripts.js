@@ -4,6 +4,32 @@ document.addEventListener("DOMContentLoaded", function() {
     loadDropdownData();
 });
 
+// Define the text to be typed
+const textToType = "إنشاء اسم الملف";
+const delay = 100; // Delay between typing each character (in milliseconds)
+
+// Get the span element where the text will be typed
+const typedTextElement = document.getElementById("typed-text");
+
+// Initialize variables
+let charIndex = 0;
+
+// Function to type text
+function typeText() {
+    // Check if all characters are typed
+    if (charIndex < textToType.length) {
+        // Append the next character to the typed text
+        typedTextElement.textContent += textToType.charAt(charIndex);
+        charIndex++;
+        // Call the function recursively after the delay
+        setTimeout(typeText, delay);
+    }
+}
+
+// Start typing when the page loads
+window.onload = typeText;
+
+
 async function loadDropdownData() {
     try {
         const response = await fetch(scriptUrl);
