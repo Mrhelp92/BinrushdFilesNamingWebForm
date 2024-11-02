@@ -36,6 +36,20 @@ async function loadDropdownData() {
             console.warn('No data found for Offer sheet');
         }
 
+        if (data["Designer-Editor"]) {
+            console.log('Designer-Editor Data:', data["Designer-Editor"]);
+            populateDropdown("designer", data["Designer-Editor"]);
+        } else {
+            console.warn('No data found for Designer-Editor sheet');
+        }
+
+        if (data.Photographer) {
+            console.log('Photographer Data:', data.Photographer);
+            populateDropdown("photographer", data.Photographer);
+        } else {
+            console.warn('No data found for Photographer sheet');
+        }
+
     } catch (error) {
         console.error("Error loading data:", error);
     }
@@ -45,6 +59,13 @@ function populateDropdown(elementId, options) {
     const dropdown = document.getElementById(elementId);
     dropdown.innerHTML = ''; // Clear existing options
 
+    // Add a blank option as the first item
+    const blankOption = document.createElement('option');
+    blankOption.value = ''; // Empty value
+    blankOption.textContent = ''; // Empty display text
+    dropdown.appendChild(blankOption);
+
+    // Populate the dropdown with new options
     options.forEach(option => {
         const opt = document.createElement('option');
         opt.value = option; 
@@ -52,6 +73,7 @@ function populateDropdown(elementId, options) {
         dropdown.appendChild(opt);
     });
 
+    // If no options, add a placeholder
     if (options.length === 0) {
         const opt = document.createElement('option');
         opt.textContent = 'No options available';
@@ -65,8 +87,40 @@ function generateName() {
     const variation = document.getElementById("variation").value;
     const creator = document.getElementById("creator").value;
     const vo = document.getElementById("vo").value;
+    const designer = document.getElementById("designer").value;
+    const photographer = document.getElementById("photographer").value;
     const offer = document.getElementById("offer").value;
 
-    const generatedName = `${name}-${variation}-(${creator}/${vo})-(${offer})`;
+    // Validate required fields
+    if (!name) {
+        alert("Please enter a name.");
+        return;
+    }
+    if (!variation) {
+        alert("Please select a variation.");
+        return;
+    }
+    if (!offer) {
+        alert("Please select an offer.");
+        return;
+    }
+
+    // Build the segments conditionally
+    const segments = [];
+
+    // Add creator, vo, designer, and photographer to segments if they are not empty
+    if (creator) segments.push(creator);
+    if (vo) segments.push(vo);
+    if (designer) segments.push(designer);
+    if (photographer) segments.push(photographer);
+
+    // Construct the segments string
+    const segmentsString = segments.length > 0 ? `(${segments.join('/')})` : '';
+
+    // Construct the final generated name with a hyphen before segments and offer
+    const generatedName = `${name}-${variation}${segmentsString ? '-' + segmentsString : ''}-${offer}`;
+
+    // Display the generated name
     document.getElementById("output").innerText = generatedName;
 }
+
