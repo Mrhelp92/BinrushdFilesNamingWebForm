@@ -1,5 +1,4 @@
-// Script url: https://script.google.com/home/projects/1yS8MyRyXcw6hPSGq6OQrp4S5kCiT8s0MdqzpK8GLddg63jyGVv2bD3FB/edit
-const scriptUrl = 'https://script.google.com/macros/s/AKfycbyhcOr4DEZqStYGXRSBrm3lE9r_oyAnkwvR3FW9LGV8jatSmv1v_15bMo6eOWQ7rVLJyw/exec';  // Replace with your Google Apps Script web app URL
+const scriptUrl = 'https://script.google.com/macros/s/AKfycbxim8Vvl3v3M9yAH0mD-Ld8xlHyAyl39UhuxT-ay2oizk8UUFLsDdo7MggdngYeUzv83g/exec';  // Replace with your Google Apps Script web app URL
 
 document.addEventListener("DOMContentLoaded", function() {
     loadDropdownData();
@@ -28,7 +27,6 @@ function typeText() {
     }
 }
 
-
 async function loadDropdownData() {
     try {
         const response = await fetch(scriptUrl);
@@ -40,6 +38,7 @@ async function loadDropdownData() {
         const data = await response.json();
         console.log('Fetched data:', data); // Log the fetched data
 
+        // Populate each dropdown with data
         if (data.Creator_name) {
             console.log('Creator Name Data:', data.Creator_name);
             populateDropdown("creator", data.Creator_name);
@@ -92,10 +91,14 @@ function populateDropdown(elementId, options) {
 
     // Populate the dropdown with new options
     options.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option; 
-        opt.textContent = option; 
-        dropdown.appendChild(opt);
+        if (option.length >= 2) { // Ensure there are at least 2 columns
+            const opt = document.createElement('option');
+            opt.value = option[1]; // Use the second column for the value
+            opt.textContent = option[0]; // Use the full first column for display text
+            dropdown.appendChild(opt);
+        } else {
+            console.warn('Insufficient data for option:', option);
+        }
     });
 
     // If no options, add a placeholder
@@ -110,11 +113,11 @@ function populateDropdown(elementId, options) {
 function generateName() {
     const name = document.getElementById("name").value;
     const variation = document.getElementById("variation").value;
-    const creator = document.getElementById("creator").value;
-    const vo = document.getElementById("vo").value;
-    const designer = document.getElementById("designer").value;
-    const photographer = document.getElementById("photographer").value;
-    const offer = document.getElementById("offer").value;
+    const creator = document.getElementById("creator").value; // Uses second column value
+    const vo = document.getElementById("vo").value; // Uses second column value
+    const designer = document.getElementById("designer").value; // Uses second column value
+    const photographer = document.getElementById("photographer").value; // Uses second column value
+    const offer = document.getElementById("offer").value; // Uses second column value
 
     // Validate required fields
     if (!name) {
@@ -148,4 +151,3 @@ function generateName() {
     // Display the generated name
     document.getElementById("output").innerText = generatedName;
 }
-
