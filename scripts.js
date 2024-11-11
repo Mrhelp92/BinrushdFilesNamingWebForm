@@ -137,7 +137,7 @@ function generateName() {
     const segments = [];
 
     // Add creator, vo, designer, and photographer to segments if they are not empty
-    if (creator) segments.push(creator);
+    // if (creator) segments.push(creator);
     if (vo) segments.push(vo);
     if (designer) segments.push(designer);
     if (photographer) segments.push(photographer);
@@ -146,7 +146,7 @@ function generateName() {
     const segmentsString = segments.length > 0 ? `(${segments.join('/')})` : '';
 
     // Construct the final generated name with a hyphen before segments and offer
-    const generatedName = `${name}-${variation}${segmentsString ? '-' + segmentsString : ''}-${offer}`;
+    const generatedName = `${creator}-${name}-${variation}${segmentsString ? '-' + segmentsString : ''}-${offer}`;
 
     // Display the generated name
     document.getElementById("output").innerText = generatedName;
